@@ -1,0 +1,89 @@
+---
+interface Props {
+	id?: string;
+	/** When true, the dialog will be initially open.
+	 *
+	 * /!\ Note that dialogs cannot be opened as a modal through this way.
+	 **/
+	open?: boolean;
+}
+
+const { id, open } = Astro.props;
+---
+
+<dialog id={id} open={open}>
+	<slot />
+</dialog>
+
+<script>
+	const dialog = document.querySelector("dialog");
+
+	if (dialog)
+		dialog.addEventListener("click", (ev) => {
+			const rect = dialog.getBoundingClientRect();
+			const is_in_dialog =
+				rect.top <= ev.clientY &&
+				ev.clientY <= rect.top + rect.height &&
+				rect.left <= ev.clientX &&
+				ev.clientX <= rect.left + rect.width;
+
+			if (!is_in_dialog) {
+				dialog.close();
+			}
+		});
+</script>
+
+<style lang="scss">
+	@use "../style/text";
+	@use "../style/z-indexes";
+
+	dialog {
+		position: fixed;
+		background: transparent;
+		color: var(--fg-base);
+		border: none;
+		outline: none;
+		@include text.default;
+		@include z-indexes.top;
+		animation: fade-in ease-in 150ms;
+
+		&::backdrop {
+			animation: backdrop-fade-in ease-in 200ms;
+			background: rgba(0, 0, 0, 0.4);
+		}
+	}
+
+	@keyframes fade-in {
+		0% {
+			opacity: 0;
+			display: none;
+		}
+
+		100% {
+			opacity: 1;
+			display: block;
+		}
+	}
+
+	@keyframes fade-out {
+		0% {
+			opacity: 1;
+			display: block;
+		}
+
+		100% {
+			opacity: 0;
+			display: none;
+		}
+	}
+
+	@keyframes backdrop-fade-in {
+		0% {
+			background: rgba(0, 0, 0, 0);
+		}
+
+		100% {
+			background: rgba(0, 0, 0, 0.4);
+		}
+	}
+</style>

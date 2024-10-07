@@ -1,0 +1,17 @@
+---
+import ServerBased from "./ServerBased.astro";
+import ClientBased from "./ClientBased.astro";
+
+interface Props {
+	/** **Whether or not the current page is prerendered. (defaults to `true`)**
+	 *
+	 * When `true`, the theme will be set on the client as it is not possible to access cookies without using SSR.
+	 * When `false`, the theme will be set on the server, preventing flickering on page load.
+	 */
+	prerender?: boolean;
+}
+
+const { prerender, ...props } = Astro.props;
+---
+
+{prerender && <ClientBased {...props}><slot/></ClientBased> ||  <ServerBased {...props}><slot/></ServerBased>}

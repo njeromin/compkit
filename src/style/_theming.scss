@@ -1,0 +1,45 @@
+@mixin light-mode {
+  --bg-ev0: #eff1f5;
+  --bg-ev1: #e6e9ef;
+  --bg-ev2: #dce0e8;
+  --bg-ev3: #ccd0da;
+  --bg-highlight: #dfe0df;
+
+  --fg-base: #4c4f69;
+  --fg-dark: #5c5f77;
+
+  --accent: #d3d6df;
+  --primary: #7287fd;
+  --red: #c73659;
+  --green: #a6e3a1;
+  --yellow: #df8e1d;
+  --orange: #fe640b;
+  --blue: #0496ff;
+
+  --scrollbar-track: #bdc2cf;
+  --scrollbar-thumb: #aeb5c5;
+  --scrollbar-thumb-hover: #a0a7ba;
+}
+
+@mixin dark-mode {
+  --bg-ev0: #11111b;
+  --bg-ev1: #181825;
+  --bg-ev2: #1e1e2e;
+  --bg-ev3: #313244;
+  --bg-highlight: #1f223b;
+
+  --fg-base: #cdd6f4;
+  --fg-dark: #a6adc8;
+
+  --accent: #242438;
+  --primary: #7287fd;
+  --red: #f38ba8;
+  --green: #a6e3a1;
+  --yellow: #f9e2af;
+  --orange: #fab387;
+  --blue: #89b4fa;
+
+  --scrollbar-track: #3c3d53;
+  --scrollbar-thumb: #464862;
+  --scrollbar-thumb-hover: #515370;
+}

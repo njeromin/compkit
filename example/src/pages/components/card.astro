@@ -1,0 +1,21 @@
+---
+import Layout from "../../layouts/Component.astro";
+
+import { Card } from "$";
+---
+
+<Layout component="Card" desc="A card." initialTheme={true}>
+	<Card slot="component">
+		<div class="card-image"></div>
+
+		<span>Test</span>
+	</Card>
+</Layout>
+
+<style>
+	:global(.head) {
+		background: var(--bg-ev2);
+		min-width: 20em;
+		height: 12em;
+	}
+</style>

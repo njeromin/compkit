@@ -1,0 +1,84 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import { Button } from "$";
+---
+
+<Layout initialTheme={true}>
+	<div class="highlight">
+		<h3>Error <span class="header-404">404</span></h3>
+		<span>The page, <code>{Astro.url.pathname}</code>, could not be found.</span>
+
+		<div class="highlight-footer">
+			<Button class="home-btn" href="/">Back home</Button>
+		</div>
+	</div>
+</Layout>
+
+<style lang="scss">
+	@use "$/style/devices";
+
+	:global(main) {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.highlight {
+		padding: 2em;
+		border-radius: 8px;
+
+		@include devices.is-phone {
+			background: transparent;
+			padding: 1em;
+			margin-bottom: 20%;
+		}
+	}
+
+	.highlight-footer {
+		display: flex;
+		margin-top: 1em;
+	}
+
+	:global(.home-btn) {
+		margin-left: auto;
+	}
+
+	h3 {
+		margin: 0;
+		margin-bottom: 0.25em;
+		font-size: 2rem;
+	}
+
+	@keyframes HeaderGradient {
+		0% {
+			background-position: 0% 23%;
+		}
+		50% {
+			background-position: 100% 78%;
+		}
+		100% {
+			background-position: 0% 23%;
+		}
+	}
+
+	.header-404 {
+		font-size: 2rem;
+		background: linear-gradient(130deg, var(--primary), var(--red));
+		background-size: 400% 400%;
+		background-clip: text;
+		color: transparent;
+		animation: HeaderGradient 13s ease infinite;
+	}
+
+	span {
+		font-size: 1.2rem;
+	}
+
+	code {
+		color: var(--primary);
+		background: var(--accent);
+		padding: 0.25em;
+		border-radius: 4px;
+	}
+</style>

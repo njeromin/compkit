@@ -1,0 +1,20 @@
+<a {...Astro.props}><slot /></a>
+
+<style lang="scss">
+	a {
+		color: var(--blue);
+		cursor: pointer;
+		text-decoration: none;
+
+		&:hover {
+			$hover-colour: color-mix(in srgb, var(--blue) 90%, #000000);
+
+			color: $hover-colour;
+			text-decoration: underline $hover-colour;
+		}
+
+		&:active {
+			color: var(--blue);
+		}
+	}
+</style>

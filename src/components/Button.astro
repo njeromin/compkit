@@ -1,0 +1,111 @@
+---
+interface Props {
+	id?: string;
+	class?: string;
+	type?: "rounded" | "rounded-box" | "text" | "icon";
+	href?: string;
+	/** The colour of the button's background. */
+	colour?: string;
+	/** The color of the button's background. */
+	color?: string;
+	/** The colour of the button's text. */
+	text?: string;
+}
+
+const c_class = `${Astro.props.class ? Astro.props.class + " " : ""}${
+	Astro.props.type || "rounded"
+}`;
+---
+
+{
+	Astro.props.href ? (
+		<a id={Astro.props.id} class={c_class} href={Astro.props.href}>
+			<slot />
+		</a>
+	) : (
+		<button id={Astro.props.id} class={c_class}>
+			<slot />
+		</button>
+	)
+}
+
+<style
+	lang="scss"
+	define:vars={{
+		"btn-bg": Astro.props.colour || Astro.props.color || "var(--primary)",
+		text: Astro.props.text || "black",
+	}}
+>
+	@use "../style/devices";
+
+	$transition-time: 150ms;
+
+	button,
+	a {
+		text-align: center;
+		vertical-align: middle;
+		border: none;
+		padding: 0.5rem 1rem;
+		font-size: 0.95rem;
+		cursor: pointer;
+
+		transition: filter ease-in 125ms;
+
+		&.rounded,
+		&.rounded-box {
+			background: var(--btn-bg);
+			color: var(--text);
+			border-radius: 9999px;
+			min-width: 5rem;
+			transition: background ease-in $transition-time;
+
+			&.rounded-box {
+				border-radius: 4px;
+			}
+
+			&:hover {
+				background: color-mix(in srgb, var(--btn-bg) 75%, var(--bg-ev0));
+			}
+
+			&:active {
+				background: color-mix(in srgb, var(--btn-bg) 85%, var(--bg-ev0));
+			}
+		}
+
+		&.text,
+		&.icon {
+			background: transparent;
+			color: var(--btn-bg);
+			border-radius: 9999px;
+			font-weight: bold;
+
+			transition: background ease-in $transition-time;
+
+			&:hover {
+				background: color-mix(in srgb, var(--btn-bg) 15%, transparent);
+			}
+
+			&:active {
+				background: color-mix(in srgb, var(--btn-bg) 5%, transparent);
+			}
+		}
+
+		&.icon {
+			min-width: 0;
+			font-size: 1rem;
+			border-radius: 50%;
+			display: grid;
+			aspect-ratio: 1;
+			place-items: center;
+			padding: 0 0.5em;
+		}
+
+		@include devices.is-phone {
+			min-height: 2.5rem;
+		}
+	}
+
+	a {
+		text-decoration: none;
+	}
+</style>

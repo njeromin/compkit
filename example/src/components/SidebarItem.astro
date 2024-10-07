@@ -1,0 +1,38 @@
+---
+interface Props {
+	name: string;
+	path: string;
+}
+
+const { name, path } = Astro.props;
+const selected = Astro.url.pathname == path;
+---
+
+<a href={path} class={(selected && "selected") || ""} data-astro-prefetch>{name}</a>
+
+<style>
+	a {
+		font-weight: bold;
+		display: block;
+		text-decoration: none;
+		color: var(--fg-dark);
+		width: 100%;
+		padding: 0.25em 0.5em;
+		border-left: 2px solid var(--accent);
+		border-radius: 2px;
+
+		&:hover {
+			background: color-mix(in srgb, var(--bg-ev3) 50%, transparent);
+			color: color-mix(in srgb, var(--fg-dark) 95%, #000000);
+			border-left: 2px solid var(--bg-ev3);
+		}
+
+		&.selected {
+			background: color-mix(in srgb, var(--primary) 25%, transparent);
+			color: var(--fg-base);
+			border-left: 2px solid var(--primary);
+			font-weight: bold;
+			pointer-events: none;
+		}
+	}
+</style>

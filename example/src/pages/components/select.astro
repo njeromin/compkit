@@ -1,0 +1,11 @@
+---
+import Layout from "../../layouts/Component.astro";
+
+import { Select } from "$";
+
+const options = ["Option A", "Option B", "Option C", "Option D"];
+---
+
+<Layout component="Select" initialTheme={true}>
+	<Select slot="component" id="select1" options={options} />
+</Layout>

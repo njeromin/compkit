@@ -1,0 +1,55 @@
+---
+interface Props {
+	id?: string;
+	class?: string;
+	placeholder?: string;
+	text?: string;
+	width?: string;
+	maxLength?: number;
+}
+---
+
+<div class="input-container" style={{ width: Astro.props.width }}>
+	<slot name="before" />
+	<input
+		id={Astro.props.id}
+		class={Astro.props.class}
+		placeholder={Astro.props.placeholder}
+		value={Astro.props.text}
+		maxlength={Astro.props.maxLength}
+	/>
+	<slot name="after" />
+</div>
+
+<style lang="scss">
+	.input-container {
+		background: var(--bg-ev2);
+		color: var(--fg-base);
+		display: inline-flex;
+		align-items: center;
+		padding: 0.4em 0.9em;
+		border-radius: 999999px;
+		outline-color: transparent;
+
+		transition: outline ease-in-out 100ms;
+
+		&:has(input:focus) {
+			outline: 2px solid color-mix(in srgb, var(--primary) 40%, transparent);
+		}
+	}
+
+	input {
+		background: var(--bg-ev2);
+		color: var(--fg-base);
+		outline: none;
+		border: none;
+		font-size: 0.9rem;
+		width: 100%;
+
+		&::placeholder,
+		&::-webkit-input-placeholder,
+		&::-ms-input-placeholder {
+			color: var(--fg-dark);
+		}
+	}
+</style>

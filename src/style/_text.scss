@@ -1,0 +1,9 @@
+@use "@fontsource/roboto-flex";
+
+@mixin default {
+	font-family: 'Roboto Flex', system-ui;
+}
+
+@mixin heading {
+	font-family: 'Roboto Flex', system-ui;
+}

@@ -1,0 +1,52 @@
+---
+interface Props {
+	class?: string;
+}
+---
+
+<div class=`card${Astro.props.class ? " " + Astro.props.class : ""}`>
+	<div class="head">
+		<slot name="head" />
+	</div>
+
+	<div class="content">
+		<slot />
+	</div>
+
+	<div class="footer">
+		<slot name="footer" />
+	</div>
+</div>
+
+<style lang="scss">
+	$border-radius: 6px;
+	$border-radius-inner: $border-radius - 1;
+
+	.card {
+		background: var(--bg-ev1);
+		color: var(--fg-base);
+		border: 1px solid var(--accent);
+
+		display: inline-block;
+		min-width: 5em;
+		border-radius: $border-radius;
+
+		& > .head,
+		& > .head > :global(*) {
+			border-radius: $border-radius-inner $border-radius-inner 0 0;
+		}
+
+		& > .head > :global(*) {
+			border-bottom: 1px solid var(--accent);
+		}
+
+		& > .content {
+			padding: 0.5em;
+		}
+
+		& > .footer,
+		& > .footer > :global(*) {
+			border-radius: 0 0 $border-radius-inner $border-radius-inner;
+		}
+	}
+</style>

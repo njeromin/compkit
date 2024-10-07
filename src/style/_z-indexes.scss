@@ -1,0 +1,4 @@
+@mixin default { z-index: 0; }
+@mixin navigation { z-index: 10; }
+@mixin tooltip { z-index: 20; }
+@mixin top { z-index: 2147483647; }

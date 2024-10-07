@@ -1,0 +1,52 @@
+---
+import { Button, Header } from "$";
+import { getTheme } from "$/utils/server/theming";
+
+interface Props {
+	subtitle?: string;
+	initialTheme?: string;
+}
+
+const initial_theme = Astro.props.initialTheme;
+
+let theme_switcher_text = "🎨 Auto";
+
+if (initial_theme)
+	switch (getTheme()) {
+		case "auto":
+			theme_switcher_text = "🎨 Auto";
+			break;
+		case "light":
+			theme_switcher_text = "🎨 Light";
+			break;
+		case "dark":
+			theme_switcher_text = "🎨 Dark";
+			break;
+	}
+---
+
+<Header icon="/favicon.svg" title="Compkit" subtitle={Astro.props.subtitle}>
+	<Button slot="right" id="theme-switcher-btn" type="text">{theme_switcher_text}</Button>
+	<slot slot="right" name="right" />
+</Header>
+
+<script>
+	import { cycleTheme } from "../../../src/utils/client/theming";
+
+	// @ts-expect-error
+	const theme_btn: HTMLButtonElement = document.getElementById("theme-switcher-btn");
+
+	theme_btn?.addEventListener("click", () => {
+		switch (cycleTheme()) {
+			case "auto":
+				theme_btn.innerText = "🎨 Auto";
+				break;
+			case "light":
+				theme_btn.innerText = "🎨 Light";
+				break;
+			case "dark":
+				theme_btn.innerText = "🎨 Dark";
+				break;
+		}
+	});
+</script>

@@ -1,0 +1,39 @@
+---
+interface Props {
+	id: string;
+	options: string[];
+	selected?: string | null;
+}
+
+const { id, options, selected } = Astro.props;
+---
+
+<select name={id} id={id}>
+	{
+		options.map((opt) => (
+			<option value={opt} selected={typeof selected == "string" ? opt == selected : false}>
+				{opt}
+			</option>
+		))
+	}
+</select>
+
+<style lang="scss">
+	select {
+		background: var(--bg-ev2);
+		color: var(--fg-base);
+		outline: none;
+		border: none;
+		border-radius: 4px;
+		padding: 0.5em;
+		padding-right: 0.25em;
+		border-right: 0.5em solid var(--bg-ev2);
+		font-size: 0.9rem;
+		cursor: pointer;
+
+		& > option {
+			background: var(--bg-ev2);
+			color: var(--fg-dark);
+		}
+	}
+</style>

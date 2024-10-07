@@ -1,0 +1,9 @@
+---
+import { getInitialThemeClass } from "../../utils/server/theming";
+
+const initial_theme = getInitialThemeClass() || "";
+---
+
+<body class={initial_theme + (Astro.props.class ? " " + Astro.props.class : "")} {...Astro.props}>
+	<slot />
+</body>

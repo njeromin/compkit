@@ -1,0 +1,53 @@
+{
+  "name": "compkit",
+  "version": "0.1.0",
+  "description": "A component library for astro.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./astro": "./src/astro.ts",
+    "./utils/*": "./src/utils/*.ts",
+    "./style/*": "./src/style/*.scss"
+  },
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "astro-component"
+  ],
+  "scripts": {
+    "test": "mocha --parallel --timeout 15000",
+    "format": "prettier -w .",
+    "lint": "eslint . --ext .ts,.js,.astro src",
+    "dev": "cd example && astro dev"
+  },
+  "devDependencies": {
+    "@astrojs/node": "^8.3.4",
+    "@iconify-json/mdi": "^1.2.0",
+    "@types/chai": "^4.3.20",
+    "@types/eslint": "^8.56.12",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^18.19.54",
+    "@types/prettier": "^2.7.3",
+    "@typescript-eslint/parser": "^5.62.0",
+    "astro": "^4.15.11",
+    "astro-component-tester": "^0.7.0",
+    "astro-icon": "^1.1.1",
+    "chai": "^4.5.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-astro": "^0.26.2",
+    "mocha": "^10.7.3",
+    "prettier": "^2.8.8",
+    "prettier-plugin-astro": "^0.5.5",
+    "typescript": "^5.6.2"
+  },
+  "peerDependencies": {
+    "astro": "^4.9.1",
+    "js-cookie": "^3.0.5"
+  },
+  "dependencies": {
+    "@fontsource/roboto-flex": "^5.1.0",
+    "astro-global": "^1.2.1",
+    "sass": "^1.79.4"
+  }
+}

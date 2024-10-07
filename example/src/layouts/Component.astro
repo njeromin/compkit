@@ -1,0 +1,123 @@
+---
+import Layout from "./Layout.astro";
+
+export interface Props {
+	component: string;
+	desc?: string;
+	initialTheme?: boolean;
+}
+
+const { component, desc, initialTheme } = Astro.props;
+---
+
+<Layout initialTheme={initialTheme} subtitle="Components">
+	<div class="view">
+		<div class="component-view">
+			<div class="component-title">
+				<h3 class="component-name">{component}</h3>
+			</div>
+
+			<div class="component-area">
+				<slot name="component" />
+			</div>
+		</div>
+
+		{
+			desc && (
+				<div class="component-desc-view">
+					<div class="component-desc-title">Description</div>
+					<div class="component-desc">{desc}</div>
+				</div>
+			)
+		}
+	</div>
+</Layout>
+
+<style lang="scss">
+	@use "$/style/devices";
+
+	:global(main) {
+		margin: 1em;
+		margin-left: auto;
+		margin-right: auto;
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		@include devices.is-phone {
+			margin: 1em 0em;
+			width: 100%;
+		}
+	}
+
+	.view {
+		width: 75%;
+		height: 75%;
+
+		@include devices.is-phone {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.component-view {
+		margin: 0.5em 2.5%;
+	}
+
+	.component-title {
+		border: 1px solid var(--accent);
+		border-bottom: none;
+		background: var(--bg-ev1);
+		border-radius: 8px;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+		padding: 0.75em;
+		margin-bottom: 0em;
+	}
+
+	.component-name {
+		margin: 0;
+	}
+
+	.component-area {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		border: 1px solid var(--accent);
+		border-radius: 8px;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+		padding: 0.5em;
+
+		min-width: 21em;
+		min-height: 12em;
+	}
+
+	.component-desc-view {
+		margin: 0.5em 2.5%;
+		border-radius: 8px;
+	}
+
+	.component-desc-title {
+		border: 1px solid var(--accent);
+		background: var(--bg-ev1);
+		font-weight: bold;
+		padding: 0.75em;
+		border-radius: 8px;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	.component-desc {
+		border: 1px solid var(--accent);
+		padding: 0.75em;
+		border-radius: 8px;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+		border-top: none;
+		display: block;
+		color: var(--fg-dark);
+	}
+</style>

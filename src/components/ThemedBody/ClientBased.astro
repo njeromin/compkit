@@ -1,0 +1,10 @@
+<body {...Astro.props}>
+	<slot />
+
+	<script>
+		import { getInitialThemeClass } from "../../utils/client/theming";
+
+		const initial_theme = getInitialThemeClass();
+		if (initial_theme) document.body.classList.add();
+	</script>
+</body>

@@ -1,0 +1,82 @@
+---
+import { App, Button, ThemedBody } from "$";
+import CommonHeader from "../components/CommonHeader.astro";
+import CommonSidebar from "../components/CommonSidebar.astro";
+
+export interface Props {
+	title?: string;
+	subtitle?: string;
+	initialTheme?: boolean;
+}
+
+const { title, subtitle, initialTheme } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Compkit{title && ` - ${title}`}</title>
+	</head>
+	<ThemedBody prerender={!initialTheme}>
+		<App>
+			<CommonHeader slot="header" initialTheme={initialTheme} subtitle={subtitle}>
+				<Button slot="right" id="sidebar-hamburger" type="icon">
+					<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
+						><path
+							fill="currentColor"
+							d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1m0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1M3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1"
+						></path>
+					</svg>
+				</Button>
+			</CommonHeader>
+
+			<div slot="main" class="app-view">
+				<CommonSidebar />
+
+				<main>
+					<slot />
+				</main>
+			</div>
+		</App>
+
+		<script>
+			const sidebar = document.getElementById("sidebar")!;
+
+			document.getElementById("sidebar-hamburger")!.addEventListener("click", () => {
+				if (sidebar.classList.contains("mobile-visible")) {
+					sidebar.classList.remove("mobile-visible");
+				} else {
+					sidebar.classList.add("mobile-visible");
+				}
+			});
+		</script>
+
+		<style lang="scss">
+			@use "$/style/devices";
+
+			.app-view {
+				display: flex;
+				flex: 2;
+			}
+
+			main {
+				flex: 2;
+			}
+
+			:global(#sidebar-hamburger) {
+				display: none;
+
+				@include devices.is-phone {
+					cursor: pointer;
+					line-height: 1em;
+					height: 1em;
+					display: block;
+				}
+			}
+		</style>
+	</ThemedBody>
+</html>

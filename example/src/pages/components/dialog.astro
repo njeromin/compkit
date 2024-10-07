@@ -1,0 +1,36 @@
+---
+import Layout from "../../layouts/Component.astro";
+
+import { Button, Dialog, Card, Header } from "$";
+---
+
+<Layout component="Dialog" desc="A dialog." initialTheme={true}>
+	<div slot="component" class="container">
+		<Button id="dialog-btn">Open as dialog</Button>
+		<Button id="modal-btn">Open as modal</Button>
+	</div>
+
+	<Dialog slot="component" id="dialog">
+		<Card>
+			<Header slot="head" title="Test Dialog" />
+			<Button id="dialog-close-btn" colour="var(--red)">Close</Button>
+		</Card>
+	</Dialog>
+</Layout>
+
+<script>
+	// @ts-expect-error
+	const dialog: HTMLDialogElement = document.getElementById("dialog");
+
+	document.getElementById("dialog-btn").addEventListener("click", () => dialog.show());
+	document.getElementById("modal-btn").addEventListener("click", () => dialog.showModal());
+	document.getElementById("dialog-close-btn").addEventListener("click", () => dialog.close());
+</script>
+
+<style lang="scss">
+	.container {
+		& > :global(*) {
+			margin: 0.5em;
+		}
+	}
+</style>
