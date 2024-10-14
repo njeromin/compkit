@@ -15,3 +15,25 @@ const { prerender, ...props } = Astro.props;
 ---
 
 {prerender && <ClientBased {...props}><slot/></ClientBased> ||  <ServerBased {...props}><slot/></ServerBased>}
+
+<style lang="scss" is:global>
+	@use "../../style/theming";
+
+	body:not(.dark) {
+		@include theming.light-mode;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		body:not(.light) {
+			@include theming.dark-mode;
+		}
+	}
+
+	body.light {
+		@include theming.light-mode;
+	}
+
+	body.dark {
+		@include theming.dark-mode;
+	}
+</style>

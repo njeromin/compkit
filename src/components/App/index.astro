@@ -1,0 +1,65 @@
+---
+import Body from "./Body.astro";
+
+interface Props {
+	prerender?: boolean;
+}
+---
+
+<Body prerender={Astro.props.prerender}>
+	<slot name="header" />
+
+	<slot name="main">
+		<main>
+			<slot />
+		</main>
+	</slot>
+
+	<div class="bottom">
+		<slot name="footer" />
+	</div>
+</Body>
+
+<style lang="scss">
+	@use "../../style/text";
+
+	body {
+		background: var(--bg-ev0);
+		color: var(--fg-base);
+		margin: 0;
+		width: 100vw;
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+		overflow: auto;
+		@include text.default;
+	}
+
+	body,
+	body * {
+		$scrollbar-width: 10px;
+		$scrollbar-track: transparent;
+		$scrollbar-track-hover: var(--scrollbar-track);
+		$scrollbar-thumb: var(--scrollbar-thumb);
+		$scrollbar-thumb-hover: var(--scrollbar-thumb-hover);
+
+		* {
+			box-sizing: border-box;
+
+			scrollbar-width: 10px;
+			scrollbar-color: $scrollbar-thumb $scrollbar-track;
+
+			&:hover {
+				scrollbar-color: $scrollbar-thumb-hover $scrollbar-track-hover;
+			}
+		}
+	}
+
+	main {
+		flex: 2;
+	}
+
+	.bottom {
+		margin-top: auto;
+	}
+</style>

@@ -14,7 +14,7 @@
 	# bun
 	bun add compkit
 	```
-2.  Set up required integrations in astro.config.js
+2.  Set up the required integrations in astro.config.js
 	```ts
 	import { integrations } from "compkit/astro";
 
@@ -46,12 +46,10 @@ interface Props {
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Compkit{title && ` - ${title}`}</title>
+		<!-- ... -->
 	</head>
-	<ThemedBody prerender={prerender}>
-		<App>
-<slot/>
-		</App>
-	</ThemedBody>
+	<App prerender={prerender}>
+		<slot/>
+	</App>
 </html>
 ```

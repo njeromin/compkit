@@ -5,11 +5,14 @@ interface Props {
 	subtitle?: string;
 	titleHref?: string;
 	mobileHideTitle?: boolean;
-	type?: "solid" | "transparent" | "adaptive";
+	position?: "sticky-top";
+	type?: "solid" | "transparent" | "semi-transparent" | "adaptive";
 }
+
+const header_class = (Astro.props.type || "solid") + (Astro.props.position ? " " + Astro.props.position : "");
 ---
 
-<header class={Astro.props.type || "solid"}>
+<header class={header_class}>
 	<div class="left">
 		<a class="title-box" href={Astro.props.titleHref}>
 			{Astro.props.icon && <img class="icon" src={Astro.props.icon} alt="Logo" />}
@@ -35,7 +38,7 @@ interface Props {
 	</div>
 </header>
 
-<script>
+{Astro.props.type == "adaptive" && <script>
 	// Make the header's background blur on scroll.
 	const header = document.querySelector("header");
 	const scroll_el = header.parentElement;
@@ -49,7 +52,7 @@ interface Props {
 			}
 		});
 	}
-</script>
+</script>}
 
 <style lang="scss">
 	@use "../style/devices";
@@ -64,14 +67,25 @@ interface Props {
 		@include z-indexes.navigation;
 		@include text.heading;
 
+		// Positions
+		&.sticky-top {
+			position: sticky;
+			top: 0;
+		}
+
+		// Types
 		&.solid {
 			background: var(--bg-ev1);
 			border-bottom: 1px solid var(--accent);
 		}
 
-		&.transparent {
+		&.semi-transparent {
 			backdrop-filter: blur(24px);
 			background: color-mix(in srgb, var(--bg-ev0), transparent 50%);
+		}
+
+		&.transparent {
+			backdrop-filter: blur(24px);
 		}
 
 		&.adaptive {
@@ -85,6 +99,7 @@ interface Props {
 			}
 		}
 
+		// Section alignment
 		& > .left,
 		& > .right,
 		& > .middle {
@@ -94,54 +109,13 @@ interface Props {
 
 		& > .left {
 			margin-right: auto;
-
-			& > .title-box {
-				display: flex;
-				text-decoration: none;
-				align-items: center;
-
-				& > .icon {
-					width: 1.4em;
-					height: 1.4em;
-					margin-right: 0.3em;
-					color: var(--fg-base);
-
-					@include devices.is-phone {
-						width: 2em;
-						height: 2em;
-					}
-				}
-
-				& > .title-text {
-					display: flex;
-					flex-direction: column;
-					justify-content: center;
-
-					&.has-icon {
-						@include devices.is-phone {
-							display: none;
-						}
-					}
-
-					& > .title {
-						font-size: 1.2rem;
-						font-weight: bold;
-						color: var(--fg-base);
-					}
-
-					& > .subtitle {
-						font-size: 0.8rem;
-						font-weight: bold;
-						color: var(--fg-dark);
-					}
-				}
-			}
 		}
 
 		& > .right {
 			margin-left: auto;
 		}
 
+		// Mobile changes
 		@include devices.is-phone {
 			padding: 0.3em 0.75em;
 			min-height: 3em;
@@ -163,6 +137,48 @@ interface Props {
 					font-size: $font-size;
 					line-height: $font-size;
 				}
+			}
+		}
+	}
+
+	.title-box {
+		display: flex;
+		text-decoration: none;
+		align-items: center;
+
+		& > .icon {
+			width: 1.4em;
+			height: 1.4em;
+			margin-right: 0.3em;
+			color: var(--fg-base);
+
+			@include devices.is-phone {
+				width: 2em;
+				height: 2em;
+			}
+		}
+
+		& > .title-text {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			&.has-icon {
+				@include devices.is-phone {
+					display: none;
+				}
+			}
+
+			& > .title {
+				font-size: 1.2rem;
+				font-weight: bold;
+				color: var(--fg-base);
+			}
+
+			& > .subtitle {
+				font-size: 0.8rem;
+				font-weight: bold;
+				color: var(--fg-dark);
 			}
 		}
 	}

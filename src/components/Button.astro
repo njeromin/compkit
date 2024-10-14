@@ -98,6 +98,7 @@ const c_class = `${Astro.props.class ? Astro.props.class + " " : ""}${
 			aspect-ratio: 1;
 			place-items: center;
 			padding: 0 0.5em;
+			flex-shrink: 0; // Prevent icon elements from shrinking and ruining the circular border radius.
 		}
 
 		@include devices.is-phone {
