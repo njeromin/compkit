@@ -35,23 +35,20 @@ interface Props {
 		@include text.default;
 	}
 
-	body,
-	body * {
+	:global(*) {
 		$scrollbar-width: 10px;
 		$scrollbar-track: transparent;
 		$scrollbar-track-hover: var(--scrollbar-track);
 		$scrollbar-thumb: var(--scrollbar-thumb);
 		$scrollbar-thumb-hover: var(--scrollbar-thumb-hover);
 
-		* {
-			box-sizing: border-box;
+		box-sizing: border-box;
 
-			scrollbar-width: 10px;
-			scrollbar-color: $scrollbar-thumb $scrollbar-track;
+		scrollbar-width: 10px;
+		scrollbar-color: $scrollbar-thumb $scrollbar-track;
 
-			&:hover {
-				scrollbar-color: $scrollbar-thumb-hover $scrollbar-track-hover;
-			}
+		&:hover {
+			scrollbar-color: $scrollbar-thumb-hover $scrollbar-track-hover;
 		}
 	}
 
