@@ -16,7 +16,7 @@ export { App, Dialog, Card, Header };
 import Button from "./components/Button.astro";
 import Input from "./components/Input.astro";
 import Select from "./components/Select.astro";
-import ToggleSwitch from "./components/ToggleSwitch.astro";
+import Switch from "./components/Switch.astro";
 import Link from "./components/Link.astro";
 
-export { Button, Input, Select, ToggleSwitch, Link };
+export { Button, Input, Select, Switch, Link };
