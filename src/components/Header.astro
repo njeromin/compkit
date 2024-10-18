@@ -12,7 +12,7 @@ interface Props {
 }
 ---
 
-<header class={Astro.props.class || ""} data-compkit-type={Astro.props.type || "solid"} data-compkit-position={Astro.props.position}>
+<header class={Astro.props.class} data-compkit-type={Astro.props.type || "solid"} data-compkit-position={Astro.props.position}>
 	<div class="left">
 		<a class="title-box" href={Astro.props.titleHref}>
 			{Astro.props.icon && <img class="icon" src={Astro.props.icon} alt="Logo" />}

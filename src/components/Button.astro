@@ -12,18 +12,21 @@ interface Props {
 	text?: string;
 }
 
-const c_class = `${Astro.props.class ? Astro.props.class + " " : ""}${
-	Astro.props.type || "rounded"
-}`;
+const btn_type = Astro.props.type || "rounded";
 ---
 
 {
 	Astro.props.href ? (
-		<a id={Astro.props.id} class={c_class} href={Astro.props.href}>
+		<a
+			id={Astro.props.id}
+			class={Astro.props.class}
+			href={Astro.props.href}
+			data-compkit-type={btn_type}
+		>
 			<slot />
 		</a>
 	) : (
-		<button id={Astro.props.id} class={c_class}>
+		<button id={Astro.props.id} class={Astro.props.class} data-compkit-type={btn_type}>
 			<slot />
 		</button>
 	)
@@ -51,15 +54,15 @@ const c_class = `${Astro.props.class ? Astro.props.class + " " : ""}${
 
 		transition: filter ease-in 125ms;
 
-		&.rounded,
-		&.rounded-box {
+		&[data-compkit-type="rounded"],
+		&[data-compkit-type="rounded-box"] {
 			background: var(--btn-bg);
 			color: var(--text);
 			border-radius: 9999px;
 			min-width: 5rem;
 			transition: background ease-in $transition-time;
 
-			&.rounded-box {
+			&[data-compkit-type="rounded-box"] {
 				border-radius: 4px;
 			}
 
@@ -72,8 +75,8 @@ const c_class = `${Astro.props.class ? Astro.props.class + " " : ""}${
 			}
 		}
 
-		&.text,
-		&.icon {
+		&[data-compkit-type="text"],
+		&[data-compkit-type="icon"] {
 			background: transparent;
 			color: var(--btn-bg);
 			border-radius: 9999px;
@@ -90,7 +93,7 @@ const c_class = `${Astro.props.class ? Astro.props.class + " " : ""}${
 			}
 		}
 
-		&.icon {
+		&[data-compkit-type="icon"] {
 			min-width: 0;
 			font-size: 1rem;
 			border-radius: 50%;

@@ -34,6 +34,10 @@ interface Props {
 		@include text.default;
 	}
 
+	:global([data-compkit-no-transitions="true"] *) {
+		transition: none !important;
+	}
+
 	:global(*) {
 		$scrollbar-width: 10px;
 		$scrollbar-track: transparent;
