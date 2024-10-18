@@ -1,5 +1,6 @@
 ---
 interface Props {
+	class?: string;
 	icon?: string;
 	title?: string;
 	subtitle?: string;
@@ -7,12 +8,11 @@ interface Props {
 	mobileHideTitle?: boolean;
 	position?: "sticky-top" | "fixed-top";
 	type?: "solid" | "transparent" | "semi-transparent" | "adaptive";
+	docScroll?: boolean;
 }
-
-const header_class = (Astro.props.type || "solid") + (Astro.props.position ? " " + Astro.props.position : "");
 ---
 
-<header class={header_class}>
+<header class={Astro.props.class || ""} data-compkit-type={Astro.props.type || "solid"} data-compkit-position={Astro.props.position}>
 	<div class="left">
 		<a class="title-box" href={Astro.props.titleHref}>
 			{Astro.props.icon && <img class="icon" src={Astro.props.icon} alt="Logo" />}
@@ -38,15 +38,16 @@ const header_class = (Astro.props.type || "solid") + (Astro.props.position ? " "
 	</div>
 </header>
 
-{Astro.props.type == "adaptive" && <script>
-const header = document.querySelector("header.adaptive");
-const scroll_el = header.parentElement;
+{Astro.props.type == "adaptive" && <script is:inline define:vars={{ docScroll: Astro.props.docScroll }}>
+const header = document.querySelector("header[data-compkit-type=adaptive]");
+const scroll_el = docScroll ? document : header.parentElement;
+const scroll_top_el = docScroll ? document.scrollingElement : header.parentElement;
 
 scroll_el.addEventListener("scroll", () => {
-	if (scroll_el.scrollTop === 0) {
-		header.classList.remove("scrolled");
+	if (scroll_top_el.scrollTop === 0) {
+		header.setAttribute("data-compkit-scrolled", false);
 	} else {
-		header.classList.add("scrolled");
+		header.setAttribute("data-compkit-scrolled", true);
 	}
 });
 </script>}
@@ -66,37 +67,37 @@ header {
 	@include text.heading;
 
 	// Positions
-	&.sticky-top {
+	&[data-compkit-position=sticky-top] {
 		position: sticky;
 		top: 0;
 	}
 
-	&.fixed-top {
+	&[data-compkit-position=fixed-top] {
 		position: fixed;
 		top: 0;
 	}
 
 	// Types
-	&.solid {
+	&[data-compkit-type=solid] {
 		background: var(--bg-ev1);
 		border-bottom: 1px solid var(--accent);
 	}
 
-	&.semi-transparent {
+	&[data-compkit-type=semi-transparent] {
 		backdrop-filter: blur(24px);
 		background: color-mix(in srgb, var(--bg-ev0), transparent 50%);
 	}
 
-	&.transparent {
+	&[data-compkit-type=transparent] {
 		backdrop-filter: blur(24px);
 	}
 
-	&.adaptive {
+	&[data-compkit-type=adaptive] {
 		background: transparent;
 		border-bottom: 1px solid transparent;
 		transition: border-bottom-color ease-in-out 300ms, background-color ease-in-out 300ms;
 
-		&.scrolled {
+		&[data-compkit-scrolled=true] {
 			border-bottom: 1px solid var(--accent);
 			background: var(--bg-ev1);
 		}

@@ -25,7 +25,14 @@ if (initial_theme)
 	}
 ---
 
-<Header icon="/favicon.svg" title="Compkit" subtitle={Astro.props.subtitle} position="sticky-top">
+<Header
+	icon="/favicon.svg"
+	title="Compkit"
+	subtitle={Astro.props.subtitle}
+	type="adaptive"
+	position="sticky-top"
+	docScroll={true}
+>
 	<Button slot="right" id="theme-switcher-btn" type="text">{theme_switcher_text}</Button>
 	<slot slot="right" name="right" />
 </Header>
