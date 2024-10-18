@@ -39,152 +39,149 @@ const header_class = (Astro.props.type || "solid") + (Astro.props.position ? " "
 </header>
 
 {Astro.props.type == "adaptive" && <script>
-	// Make the header's background blur on scroll.
-	const header = document.querySelector("header");
-	const scroll_el = header.parentElement;
+const header = document.querySelector("header.adaptive");
+const scroll_el = header.parentElement;
 
-	if (header?.classList.contains("adaptive")) {
-		scroll_el.addEventListener("scroll", (_) => {
-			if (scroll_el.scrollTop === 0) {
-				header.classList.remove("scrolled");
-			} else {
-				header.classList.add("scrolled");
-			}
-		});
+scroll_el.addEventListener("scroll", () => {
+	if (scroll_el.scrollTop === 0) {
+		header.classList.remove("scrolled");
+	} else {
+		header.classList.add("scrolled");
 	}
+});
 </script>}
 
 <style lang="scss">
-	@use "../style/devices";
-	@use "../style/text";
-	@use "../style/z-indexes";
+@use "../style/devices";
+@use "../style/text";
+@use "../style/z-indexes";
 
-	header {
-		padding: 0.5em 1em;
-		height: 3em;
-		display: flex;
-		align-items: center;
-		@include z-indexes.navigation;
-		@include text.heading;
+header {
+	padding: 0.5em 1em;
+	height: 3em;
+	display: flex;
+	align-items: center;
+	@include z-indexes.navigation;
+	@include text.heading;
 
-		// Positions
-		&.sticky-top {
-			position: sticky;
-			top: 0;
-		}
+	// Positions
+	&.sticky-top {
+		position: sticky;
+		top: 0;
+	}
 
-		&.fixed-top {
-			position: fixed;
-			top: 0;
-		}
+	&.fixed-top {
+		position: fixed;
+		top: 0;
+	}
 
-		// Types
-		&.solid {
-			background: var(--bg-ev1);
+	// Types
+	&.solid {
+		background: var(--bg-ev1);
+		border-bottom: 1px solid var(--accent);
+	}
+
+	&.semi-transparent {
+		backdrop-filter: blur(24px);
+		background: color-mix(in srgb, var(--bg-ev0), transparent 50%);
+	}
+
+	&.transparent {
+		backdrop-filter: blur(24px);
+	}
+
+	&.adaptive {
+		background: transparent;
+		border-bottom: 1px solid transparent;
+		transition: border-bottom-color ease-in-out 300ms, background-color ease-in-out 300ms;
+
+		&.scrolled {
 			border-bottom: 1px solid var(--accent);
-		}
-
-		&.semi-transparent {
-			backdrop-filter: blur(24px);
-			background: color-mix(in srgb, var(--bg-ev0), transparent 50%);
-		}
-
-		&.transparent {
-			backdrop-filter: blur(24px);
-		}
-
-		&.adaptive {
-			background: transparent;
-			border-bottom: 1px solid transparent;
-			transition: border-bottom-color ease-in-out 300ms, background-color ease-in-out 300ms;
-
-			&.scrolled {
-				border-bottom: 1px solid var(--accent);
-				backgroudn: var(--bg-ev1);
-			}
-		}
-
-		// Section alignment
-		& > .left,
-		& > .right,
-		& > .middle {
-			display: flex;
-			align-items: center;
-		}
-
-		& > .left {
-			margin-right: auto;
-		}
-
-		& > .right {
-			margin-left: auto;
-		}
-
-		// Mobile changes
-		@include devices.is-phone {
-			padding: 0.3em 0.75em;
-			min-height: 3em;
-
-			& :global(button) :global(a) {
-				font-size: 0.75rem;
-				height: 1.5rem;
-				line-height: 1.5rem;
-			}
-
-			& > .left > .title-box > .title-text {
-				& > .title {
-					font-size: 1.05rem;
-				}
-
-				& > .subtitle {
-					$font-size: 0.8 - 0.15rem;
-
-					font-size: $font-size;
-					line-height: $font-size;
-				}
-			}
+			backgroudn: var(--bg-ev1);
 		}
 	}
 
-	.title-box {
+	// Section alignment
+	& > .left,
+	& > .right,
+	& > .middle {
 		display: flex;
-		text-decoration: none;
 		align-items: center;
+	}
 
-		& > .icon {
-			width: 1.4em;
-			height: 1.4em;
-			margin-right: 0.3em;
-			color: var(--fg-base);
+	& > .left {
+		margin-right: auto;
+	}
 
-			@include devices.is-phone {
-				width: 2em;
-				height: 2em;
-			}
+	& > .right {
+		margin-left: auto;
+	}
+
+	// Mobile changes
+	@include devices.is-phone {
+		padding: 0.3em 0.75em;
+		min-height: 3em;
+
+		& :global(button) :global(a) {
+			font-size: 0.75rem;
+			height: 1.5rem;
+			line-height: 1.5rem;
 		}
 
-		& > .title-text {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-
-			&.has-icon {
-				@include devices.is-phone {
-					display: none;
-				}
-			}
-
+		& > .left > .title-box > .title-text {
 			& > .title {
-				font-size: 1.2rem;
-				font-weight: bold;
-				color: var(--fg-base);
+				font-size: 1.05rem;
 			}
 
 			& > .subtitle {
-				font-size: 0.8rem;
-				font-weight: bold;
-				color: var(--fg-dark);
+				$font-size: 0.8 - 0.15rem;
+
+				font-size: $font-size;
+				line-height: $font-size;
 			}
 		}
 	}
+}
+
+.title-box {
+	display: flex;
+	text-decoration: none;
+	align-items: center;
+
+	& > .icon {
+		width: 1.4em;
+		height: 1.4em;
+		margin-right: 0.3em;
+		color: var(--fg-base);
+
+		@include devices.is-phone {
+			width: 2em;
+			height: 2em;
+		}
+	}
+
+	& > .title-text {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		&.has-icon {
+			@include devices.is-phone {
+				display: none;
+			}
+		}
+
+		& > .title {
+			font-size: 1.2rem;
+			font-weight: bold;
+			color: var(--fg-base);
+		}
+
+		& > .subtitle {
+			font-size: 0.8rem;
+			font-weight: bold;
+			color: var(--fg-dark);
+		}
+	}
+}
 </style>
