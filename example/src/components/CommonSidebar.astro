@@ -5,10 +5,9 @@ import "fs";
 // fs.readdirSync("./src/pages/components/").forEach((file) => {});
 ---
 
-<div id="sidebar">
+<aside id="sidebar">
 	<h3>Paths</h3>
 	<SidebarItem name="Home" path="/" />
-	<SidebarItem name="Product" path="/product" />
 
 	<h3>Components</h3>
 
@@ -17,17 +16,22 @@ import "fs";
 	<SidebarItem name="Card" path="/components/card" />
 	<SidebarItem name="Dialog" path="/components/dialog" />
 	<SidebarItem name="Select" path="/components/select" />
-	<SidebarItem name="Toggle Switch" path="/components/toggleswitch" />
-</div>
+	<SidebarItem name="Switch" path="/components/switch" />
+</aside>
 
 <style lang="scss">
 	@use "$/style/devices";
 
 	#sidebar {
-		background: var(--bg-ev0);
-		border-right: 1px solid var(--accent);
+		background: var(--bg-ev1);
 		width: 15%;
+		height: calc(100cqh - var(--header-height) - 1em);
+		top: calc(var(--header-height) + 0.5em);
 		padding: 0.5em;
+		margin: 0.5em;
+		border-radius: 8px;
+		position: sticky;
+		left: 0;
 
 		& > h3 {
 			font-size: 1.1rem;

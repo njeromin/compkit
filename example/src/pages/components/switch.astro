@@ -1,12 +1,12 @@
 ---
 import Layout from "../../layouts/Component.astro";
 
-import { ToggleSwitch } from "$";
+import { Switch } from "$";
 ---
 
 <Layout component="Toggle Switch" initialTheme={true}>
 	<label for="toggle" slot="component">Toggle</label>
-	<ToggleSwitch slot="component" id="toggle" />
+	<Switch slot="component" id="toggle" />
 </Layout>
 
 <style>
