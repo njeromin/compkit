@@ -1,4 +1,4 @@
-@use "./themes/catppuccin";
+@use "./themes/ayu";
 
 @use "sass:meta";
 @use "sass:map";
@@ -14,13 +14,13 @@
 }
 
 @mixin light-mode {
-  @each $key, $val in map.get(catppuccin.$theme, "light") {
+  @each $key, $val in map.get(ayu.$theme, "light") {
     @include value($key, $val);
   }
 }
 
 @mixin dark-mode {
-  @each $key, $val in map.get(catppuccin.$theme, "dark") {
+  @each $key, $val in map.get(ayu.$theme, "dark") {
     @include value($key, $val);
   }
 }
