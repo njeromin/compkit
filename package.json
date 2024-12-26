@@ -23,14 +23,14 @@
   },
   "devDependencies": {
     "@astrojs/node": "^8.3.4",
-    "@iconify-json/mdi": "^1.2.1",
+    "@iconify-json/mdi": "^1.2.2",
     "@types/chai": "^4.3.20",
     "@types/eslint": "^8.56.12",
     "@types/mocha": "^9.1.1",
-    "@types/node": "^18.19.67",
+    "@types/node": "^18.19.68",
     "@types/prettier": "^2.7.3",
     "@typescript-eslint/parser": "^5.62.0",
-    "astro": "^4.16.16",
+    "astro": "^4.16.18",
     "astro-component-tester": "^0.7.0",
     "astro-icon": "^1.1.4",
     "chai": "^4.5.0",
@@ -48,6 +48,6 @@
   "dependencies": {
     "@fontsource/roboto-flex": "^5.1.0",
     "astro-global": "^1.3.0",
-    "sass": "^1.81.1"
+    "sass": "^1.83.0"
   }
 }
